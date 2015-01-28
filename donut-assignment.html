@@ -1,113 +1,36 @@
 <script>
-  function Store(name, traffic, percentEnter, donutsPurchased) {
+  function Store(name, minTraffic, maxTraffic, percentEnter, donutsPurchased) {
     this.name = name;
-    this.traffic = traffic;
+    this.minTraffic = minTraffic;
+    this.maxTraffic = maxTraffic;
     this.percentEnter = percentEnter;
     this.donutsPurchased = donutsPurchased;
-    this.hours = 11;
-    this.hourlyDonuts = [];
-    this.getDonuts = function getDonuts(min, max) { 
-      //returns random number in range array
-      var ranTraffic = Math.floor(Math.random() * (max - min + 1)) + min;
-      return ranTraffic;
-      //find how many customers come in based on random number chosen and multiply the result by donuts purchased per person
-      var customers = Math.floor((ranTraffic * (this.percentEnter / 100)) * this.donutsPurchased);
-      return customers;
+    var hrs = ["7 and 8 a.m.", "8 and 9 a.m.", "9 and 10 a.m.", "10 and 11 a.m.", "11 a.m. and 12 p.m.", "12 and 1 p.m.", "1 and 2 p.m.", "2 and 3 p.m.", "3 and 4 p.m.", "4 and 5 p.m.", "5 and 6 p.m."];
+
+    this.getDonuts = function() {
+      var footTraffic,
+        hourlyDonuts,
+        dailyDonuts =0;
+      for(var i = 0; i <= 10; i++) {
+        footTraffic = Math.random() * (this.maxTraffic - this.minTraffic + 1) + this.minTraffic;
+        hourlyDonuts = Math.floor(footTraffic * (this.percentEnter * this.donutsPurchased));
+        dailyDonuts += hourlyDonuts;
+        console.log(this.name + " needs " + hourlyDonuts + " between " + hrs[i]);
+      };
+      console.log(this.name + " needs " + dailyDonuts + " per day.")
     };
   }
 
-  var downtown = new Store("Downtown", [80, 220], 10, 4);
-  var capitolHill = new Store("Capitol Hill", [5, 45], 45, 2);
-  var southLakeUnion = new Store("South Lake Union", [180, 250], 5, 6);
-  var wedgewood = new Store("Wedgewood", [20, 60], 20, 1.5);
-  var ballard = new Store("Ballard", [25, 175], 33, 1);
-  var hrs = ["7 and 8 a.m.", "8 and 9 a.m.", "9 and 10 a.m.", "10 and 11 a.m.", "11 a.m. and 12 p.m.", "12 and 1 p.m.", "1 and 2 p.m.", "2 and 3 p.m.", "3 and 4 p.m.", "4 and 5 p.m.", "5 and 6 p.m."];
-
-  //running the code 11 times, once for each hour of operation -- and pushing values into array
-  for(i = 1; i <= 11; i++) {
-    downtown.hourlyDonuts.push(downtown.getDonuts(downtown.traffic[0], downtown.traffic[1])); 
-    capitolHill.hourlyDonuts.push(capitolHill.getDonuts(capitolHill.traffic[0], capitolHill.traffic[1]));
-    southLakeUnion.hourlyDonuts.push(southLakeUnion.getDonuts(southLakeUnion.traffic[0], southLakeUnion.traffic[1]));
-    wedgewood.hourlyDonuts.push(wedgewood.getDonuts(wedgewood.traffic[0], wedgewood.traffic[1]));
-    ballard.hourlyDonuts.push(ballard.getDonuts(ballard.traffic[0], ballard.traffic[1]));
-  };
-
-  //print out hour by hour donut purchases
-  console.log(downtown.name + " location:")
-  console.log(downtown.hourlyDonuts[0] + " donuts are needed between " + hrs[0]);
-  console.log(downtown.hourlyDonuts[1] + " donuts are needed between " + hrs[1]);
-  console.log(downtown.hourlyDonuts[2] + " donuts are needed between " + hrs[2]);
-  console.log(downtown.hourlyDonuts[3] + " donuts are needed between " + hrs[3]);
-  console.log(downtown.hourlyDonuts[4] + " donuts are needed between " + hrs[4]);
-  console.log(downtown.hourlyDonuts[5] + " donuts are needed between " + hrs[5]);
-  console.log(downtown.hourlyDonuts[6] + " donuts are needed between " + hrs[6]);
-  console.log(downtown.hourlyDonuts[7] + " donuts are needed between " + hrs[7]);
-  console.log(downtown.hourlyDonuts[8] + " donuts are needed between " + hrs[8]);
-  console.log(downtown.hourlyDonuts[9] + " donuts are needed between " + hrs[9]);
-  console.log(downtown.hourlyDonuts[10] + " donuts are needed between " + hrs[10]);
-
-  //add up each hour's donut purchases, then print to the console
-  console.log("Total donuts needed at the " + downtown.name + " location: " + (downtown.hourlyDonuts[0] + downtown.hourlyDonuts[1] + downtown.hourlyDonuts[2] + downtown.hourlyDonuts[3] + downtown.hourlyDonuts[4] + downtown.hourlyDonuts[5] + downtown.hourlyDonuts[6] + downtown.hourlyDonuts[7] + downtown.hourlyDonuts[8] + downtown.hourlyDonuts[9] + downtown.hourlyDonuts[10]));
-
-  console.log(capitolHill.name + " location:")
-  console.log(capitolHill.hourlyDonuts[0] + " donuts are needed between " + hrs[0]);
-  console.log(capitolHill.hourlyDonuts[1] + " donuts are needed between " + hrs[1]);
-  console.log(capitolHill.hourlyDonuts[2] + " donuts are needed between " + hrs[2]);
-  console.log(capitolHill.hourlyDonuts[3] + " donuts are needed between " + hrs[3]);
-  console.log(capitolHill.hourlyDonuts[4] + " donuts are needed between " + hrs[4]);
-  console.log(capitolHill.hourlyDonuts[5] + " donuts are needed between " + hrs[5]);
-  console.log(capitolHill.hourlyDonuts[6] + " donuts are needed between " + hrs[6]);
-  console.log(capitolHill.hourlyDonuts[7] + " donuts are needed between " + hrs[7]);
-  console.log(capitolHill.hourlyDonuts[8] + " donuts are needed between " + hrs[8]);
-  console.log(capitolHill.hourlyDonuts[9] + " donuts are needed between " + hrs[9]);
-  console.log(capitolHill.hourlyDonuts[10] + " donuts are needed between " + hrs[10]);
-
-  console.log("Total donuts needed at the " + capitolHill.name + " location: " + (capitolHill.hourlyDonuts[0] + capitolHill.hourlyDonuts[1] + capitolHill.hourlyDonuts[2] + capitolHill.hourlyDonuts[3] + capitolHill.hourlyDonuts[4] + capitolHill.hourlyDonuts[5] + capitolHill.hourlyDonuts[6] + capitolHill.hourlyDonuts[7] + capitolHill.hourlyDonuts[8] + capitolHill.hourlyDonuts[9] + capitolHill.hourlyDonuts[10]));
-
-  console.log(southLakeUnion.name + " location:")
-  console.log(southLakeUnion.hourlyDonuts[0] + " donuts are needed between " + hrs[0]);
-  console.log(southLakeUnion.hourlyDonuts[1] + " donuts are needed between " + hrs[1]);
-  console.log(southLakeUnion.hourlyDonuts[2] + " donuts are needed between " + hrs[2]);
-  console.log(southLakeUnion.hourlyDonuts[3] + " donuts are needed between " + hrs[3]);
-  console.log(southLakeUnion.hourlyDonuts[4] + " donuts are needed between " + hrs[4]);
-  console.log(southLakeUnion.hourlyDonuts[5] + " donuts are needed between " + hrs[5]);
-  console.log(southLakeUnion.hourlyDonuts[6] + " donuts are needed between " + hrs[6]);
-  console.log(southLakeUnion.hourlyDonuts[7] + " donuts are needed between " + hrs[7]);
-  console.log(southLakeUnion.hourlyDonuts[8] + " donuts are needed between " + hrs[8]);
-  console.log(southLakeUnion.hourlyDonuts[9] + " donuts are needed between " + hrs[9]);
-  console.log(southLakeUnion.hourlyDonuts[10] + " donuts are needed between " + hrs[10]);
-
-  console.log("Total donuts needed at the " + southLakeUnion.name + " location: " + (southLakeUnion.hourlyDonuts[0] + southLakeUnion.hourlyDonuts[1] + southLakeUnion.hourlyDonuts[2] + southLakeUnion.hourlyDonuts[3] + southLakeUnion.hourlyDonuts[4] + southLakeUnion.hourlyDonuts[5] + southLakeUnion.hourlyDonuts[6] + southLakeUnion.hourlyDonuts[7] + southLakeUnion.hourlyDonuts[8] + southLakeUnion.hourlyDonuts[9] + southLakeUnion.hourlyDonuts[10]));
-
-  console.log(wedgewood.name + " location:")
-  console.log(wedgewood.hourlyDonuts[0] + " donuts are needed between " + hrs[0]);
-  console.log(wedgewood.hourlyDonuts[1] + " donuts are needed between " + hrs[1]);
-  console.log(wedgewood.hourlyDonuts[2] + " donuts are needed between " + hrs[2]);
-  console.log(wedgewood.hourlyDonuts[3] + " donuts are needed between " + hrs[3]);
-  console.log(wedgewood.hourlyDonuts[4] + " donuts are needed between " + hrs[4]);
-  console.log(wedgewood.hourlyDonuts[5] + " donuts are needed between " + hrs[5]);
-  console.log(wedgewood.hourlyDonuts[6] + " donuts are needed between " + hrs[6]);
-  console.log(wedgewood.hourlyDonuts[7] + " donuts are needed between " + hrs[7]);
-  console.log(wedgewood.hourlyDonuts[8] + " donuts are needed between " + hrs[8]);
-  console.log(wedgewood.hourlyDonuts[9] + " donuts are needed between " + hrs[9]);
-  console.log(wedgewood.hourlyDonuts[10] + " donuts are needed between " + hrs[10]);
-
-  console.log("Total donuts needed at the " + wedgewood.name + " location: " + (wedgewood.hourlyDonuts[0] + wedgewood.hourlyDonuts[1] + wedgewood.hourlyDonuts[2] + wedgewood.hourlyDonuts[3] + wedgewood.hourlyDonuts[4] + wedgewood.hourlyDonuts[5] + wedgewood.hourlyDonuts[6] + wedgewood.hourlyDonuts[7] + wedgewood.hourlyDonuts[8] + wedgewood.hourlyDonuts[9] + wedgewood.hourlyDonuts[10]));
-
-  console.log(ballard.name + " location:")
-  console.log(ballard.hourlyDonuts[0] + " donuts are needed between " + hrs[0]);
-  console.log(ballard.hourlyDonuts[1] + " donuts are needed between " + hrs[1]);
-  console.log(ballard.hourlyDonuts[2] + " donuts are needed between " + hrs[2]);
-  console.log(ballard.hourlyDonuts[3] + " donuts are needed between " + hrs[3]);
-  console.log(ballard.hourlyDonuts[4] + " donuts are needed between " + hrs[4]);
-  console.log(ballard.hourlyDonuts[5] + " donuts are needed between " + hrs[5]);
-  console.log(ballard.hourlyDonuts[6] + " donuts are needed between " + hrs[6]);
-  console.log(ballard.hourlyDonuts[7] + " donuts are needed between " + hrs[7]);
-  console.log(ballard.hourlyDonuts[8] + " donuts are needed between " + hrs[8]);
-  console.log(ballard.hourlyDonuts[9] + " donuts are needed between " + hrs[9]);
-  console.log(ballard.hourlyDonuts[10] + " donuts are needed between " + hrs[10]);
-
-  console.log("Total donuts needed at the " + ballard.name + " location: " + (ballard.hourlyDonuts[0] + ballard.hourlyDonuts[1] + ballard.hourlyDonuts[2] + ballard.hourlyDonuts[3] + ballard.hourlyDonuts[4] + ballard.hourlyDonuts[5] + ballard.hourlyDonuts[6] + ballard.hourlyDonuts[7] + ballard.hourlyDonuts[8] + ballard.hourlyDonuts[9] + ballard.hourlyDonuts[10]));
+  var downtown       = new Store("Downtown",         80,  220,  .10,  4  );
+  var capitolHill    = new Store("Capitol Hill",     5,   45,   .45,  2  );
+  var southLakeUnion = new Store("South Lake Union", 180, 250,  .05,  6  );
+  var wedgewood      = new Store("Wedgewood",        20,  60,   .20,  1.5);
+  var ballard        = new Store("Ballard",          25,  175,  .33,  1  );
+  
+downtown.getDonuts();
+capitolHill.getDonuts();
+southLakeUnion.getDonuts();
+wedgewood.getDonuts();
+ballard.getDonuts();
 
 </script>
-
